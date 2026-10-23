@@ -1,0 +1,27 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "build/**"
+
+linter:
+  rules:
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+
+# WHY THIS FILE
+# Centralizes lint rules so `dart analyze` is the single gate for code
+# quality across every day's commit — CI fails the PR pipeline if this
+# isn't clean.
+# Alternative considered: default `flutter_lints` (looser). Rejected
+# because very_good_analysis catches missing return types, unawaited
+# futures, and other bugs that surface as production crashes later.
+# Pitfall a junior would hit: excluding generated files improperly and
+# having `dart analyze` choke on `.freezed.dart`/`.g.dart` output that
+# isn't meant to be hand-edited or lint-clean.

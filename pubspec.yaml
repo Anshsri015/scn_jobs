@@ -1,0 +1,193 @@
+name: scn_jobs
+description: SCN Jobs — Worker app for the Indian blue/grey-collar job market.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+
+  # Navigation
+  go_router: ^14.2.7
+
+  # Networking
+  dio: ^5.7.0
+  dio_cookie_manager: ^3.1.1
+  dio_smart_retry: ^7.0.1
+  cookie_jar: ^4.0.8
+
+  # Secure Storage
+  flutter_secure_storage: ^9.2.2
+
+  # Local Database
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.4
+
+  # Non-sensitive local preferences (Day 19)
+  shared_preferences: ^2.3.2
+
+  # Profile Setup
+  image_picker: ^1.1.2
+  intl: ^0.19.0
+
+  # Resume Upload (Day 13)
+  file_picker: ^8.1.2
+
+  # Push Notifications (Day 18)
+
+  flutter_local_notifications: ^18.0.1
+
+  # About screen (Day 19)
+  package_info_plus: ^8.1.1
+
+  # JSON Models
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # Utilities
+  logger: ^2.4.0
+
+  webview_flutter: ^4.9.0
+  connectivity_plus: ^6.1.0
+  url_launcher: ^6.3.2
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  build_runner: ^2.4.9
+  isar_generator: ^3.1.0+1
+
+  # Freezed / JSON code generation
+  freezed: ^2.5.2
+  json_serializable: ^6.8.0
+
+  # Testing
+  mockito: ^5.4.4
+  mocktail: ^1.0.5
+
+  # Lint Rules
+  very_good_analysis: ^6.0.0
+
+  # App icon + native splash screen (logo setup)
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Variable.ttf
+
+# App icon generator config. Run: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.jpeg"
+  min_sdk_android: 21
+
+# Native splash (shown before Flutter even loads) config.
+# Run: dart run flutter_native_splash:create
+flutter_native_splash:
+  color: "#0F172A"
+  image: "assets/images/logo.jpeg"
+  android_12:
+    color: "#0F172A"
+    image: "assets/images/logo.jpeg"
+
+# WHY THIS FILE
+#
+# Day 2
+# -----
+# flutter_secure_storage — Stores JWT/session tokens securely using
+# Android Keystore / iOS Keychain instead of SharedPreferences.
+#
+# isar + isar_flutter_libs — Local offline database chosen for fast
+# querying and offline-first architecture.
+#
+# Day 4
+# -----
+# freezed + freezed_annotation + json_serializable + json_annotation —
+# Used by UserModel and AuthResponseModel for immutable models and
+# JSON serialization.
+#
+# Day 10
+# ------
+# image_picker — Capture/select profile photo.
+# intl — Format DOB, education year and dates.
+#
+# Day 13
+# ------
+# file_picker — PDF/DOC/DOCX selection for resume upload.
+#
+# Day 18
+# ------
+# firebase_core + firebase_messaging — FCM push notifications.
+# Requires `flutterfire configure` to generate firebase_options.dart.
+#
+# flutter_local_notifications — Displays notifications while the app
+# is in the foreground.
+#
+# Day 19
+# ------
+# shared_preferences — Stores lightweight settings such as notification
+# toggle and language preference.
+#
+# package_info_plus — Reads the app's real version/build number for the
+# About screen.
+#
+# Fonts
+# -----
+# Poppins + Inter are bundled as local assets (assets/fonts/) instead of
+# fetched at runtime via google_fonts, which hit the network on first
+# launch and showed fallback type on slow connections before the real
+# font arrived. google_fonts dependency removed (Sep 2026, Play Store
+# readiness pass, item D4).
+#
+# Testing
+# -------
+# mockito — Generated mocks.
+# mocktail — Manual Mock classes.
+#
+# Logo / branding
+# ----------------
+# flutter_launcher_icons — Generates the Android/iOS app (launcher)
+# icon from assets/images/logo.jpeg.
+#
+# flutter_native_splash — Generates the native splash screen (the one
+# shown before Flutter's own engine finishes loading) from the same
+# logo, background color matched to SplashScreen's #0F172A so the
+# handoff into the in-app animated splash is seamless.
+#
+# PLAN DEVIATION
+# --------------
+# reactive_forms is intentionally not added. The project consistently
+# uses Flutter's built-in Form + TextFormField + Validators.
+#
+# Common pitfall
+# --------------
+# Keep build_runner, freezed, json_serializable and isar_generator in
+# dev_dependencies only. They are build-time tools and should never be
+# shipped inside the release APK.
